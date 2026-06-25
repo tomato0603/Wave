@@ -1,0 +1,78 @@
+⚙️ Full Project Specifications: [Wave] - Minimalist Life Log
+You are an expert Frontend Engineer. Your task is to generate a single, fully functional, beautifully designed HTML file (incorporating HTML5, CSS3, and Vanilla JavaScript) based on the exact specifications below.
+
+The application must be completely self-contained, using zero external dependencies or frameworks, and must work instantly when opened in any modern web browser.
+
+1. Core Philosophy & UI Concept
+Name: Wave
+
+Concept: A minimalist life log that captures the user's daily "wavelength" through colors. It provides non-judgmental validation of ordinary days by stacking these color data points into a beautiful, visual "strata" (geological layers).
+
+Philosophical Motto: "The present self validates the past; the future self validates the present."
+
+No Analysis: The system does NOT analyze, rate, or comment on the user's colors. It simply preserves and visualizes them exactly as they are.
+
+Design Aesthetic: Deeply minimalist, clean, immersive, and tranquil. Use a dark or muted neutral background so the user-selected colors stand out as the primary visual elements.
+
+2. User Workflow & Data Logic
+Input: The user is presented with 3 independent HTML color pickers (<input type="color">) and 1 optional short text input field (max 30 characters).
+
+Action: The user clicks a single "Save Wave" button.
+
+Processing (The Core Logic):
+
+Color 1 (Primary Color): Saved permanently to represent the user's core wavelength for that entry. This color will form the physical "strata layer" in the vertical timeline.
+
+Color 2 & Color 3 (Display Only): Used only to power a brief, beautiful submission splash/animation (e.g., a blended gradient overlay that fades out), and stored in the database for micro-previews, but they do not form layers in the main timeline stack.
+
+Output: The timeline immediately refreshes, rendering the new entry at the top of the vertical stack as a new layer of strata.
+
+3. Technical Requirements
+A. Data Model (JSON Structure)
+Each entry must be stored in an array of objects within localStorage under the key wave_log_data.
+
+JSON
+{
+  "id": "DOMString (unique timestamp-based string)",
+  "timestamp": "Date String (YYYY-MM-DD)",
+  "primaryColor": "#HEXCODE", 
+  "displayColors": ["#HEXCODE2", "#HEXCODE3"],
+  "note": "String (Max 30 chars, can be empty/null)"
+}
+B. JavaScript Logic (CRUD - Read/Create)
+On Load: Check localStorage for wave_log_data. If entries exist, parse them and loop through them to render the timeline view.
+
+On Save:
+
+Prevent multiple submissions for the exact same calendar day (only 1 entry allowed per YYYY-MM-DD. If an entry exists for today, overwrite it gracefully).
+
+Push the new data object into the array, save to localStorage, and trigger a re-render of the timeline.
+
+C. UI & Rendering Specifications
+The Control Panel:
+
+Group the 3 color pickers horizontally with clean, minimal labels (e.g., "Primary Layer", "Aura 1", "Aura 2").
+
+Include a minimalist 1-line text input field for the optional short note.
+
+A beautifully styled, borderless "Save Wave" button.
+
+The Strata Timeline (Output View):
+
+A vertical container where each log entry is rendered as a thin, full-width horizontal stripe colored entirely by that entry's primaryColor.
+
+The stripes must stack tightly together on top of each other down the page, resembling beautiful geological layers (strata) or a woven tapestry.
+
+4. Philosophy Integration (Core Wavelength Logic)
+Rule 1: "The Present Validates the Past" (Color Reflection)
+Trigger: When the user selects or hovers over a color for today, or when a new entry is saved, the system must search the localStorage database for any historical entries with the exact same (or hex-distantly close) primary color.
+
+Behavior: If a match is found, those specific historical stripes in the timeline should gently pulsate or glow via a CSS transition/animation, signaling visually that "a past day shared this exact same wavelength."
+
+Rule 2: "The Future Validates the Present" (Time-Capsule Note)
+Trigger: Any text note saved by the user must remain strictly hidden in the default timeline view, acting as a sealed capsule.
+
+Behavior: The note, along with a small preview of the other two displayColors, is only revealed with a smooth fade-in tooltip/popover animation when the user hovers over or clicks that specific primary stripe in the future. This allows their future self to look back and validate that exact moment in time.
+
+5. Output Instruction
+Generate the complete source code inside a single code block markdown fence. Ensure the JavaScript handles all DOM manipulation, localStorage persistence, CSS animations for the pulsating/hover effects, and timeline rendering flawlessly on the first try.
